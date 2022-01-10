@@ -1,16 +1,23 @@
+@import "header.scss";
+@import "footer.scss";
+
 body {
-    background: #fffff8;
+    background: #3b4a6b;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 #app {
     height: 100vh;
-    background: #f23557;
-    color: #f0d43a;
+    background: #eee;
+    color: #3b4a6b;
     justify-content: center;
     grid-gap: 1em;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
+    position: relative;
+    background-image: url('https://media.wired.com/photos/59328e1c2a990b06268ab832/191:100/pass/travelocity-expedia.jpg');
+    background-repeat:no-repeat;
+    background-size:100% 100vh;
 }
 
 .holder {
@@ -26,6 +33,9 @@ body {
     height: 100%;
 }
 
+.formWrapper {
+    padding: 1%;
+}
 #entryHolder {
 }
 
@@ -61,8 +71,8 @@ input {
 }
 
 button {
-    width: 100%;
-    height: 100px;
+    width: 30%;
+    height: 10%;
     background: #3b4a6b;
     color: #f0d43a;
     font-size: 26px;

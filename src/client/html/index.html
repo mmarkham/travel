@@ -7,29 +7,60 @@
 <link rel="stylesheet" href="style.css">
 </head>
  <body>
-<div id = "app">
-  <div class ="holder headline">
-    Travel
-  </div>
-  <div class ="holder zip">
-    <label for="zip">Enter Zipcode here</label>
-    <input type="text" id="zip" placeholder="enter zip code here">
-  </div>
-  <div class ="holder feel">
-    <label for="feelings">How are you feeling today?</label>
-    <textarea class= "myInput" id="feelings" placeholder="Enter your feelings here" rows="9" cols="50"></textarea>
-    <button id="generate" type = "submit"> Generate </button>
-  </div>
-  <div class ="holder entry">
-    <div class = "title">Most Recent Entry</div>
-   <div id = "entryHolder">
-    <div id = "date"></div> 
-   <div id = "temp"></div>
-   <div id = "content"></div>
-  </div>
-  </div>
-  </div>
-<script src="app.js" type="text/javascript"></script>
-
+  <header>
+    <div class="header">
+      <p>Travel</p>
+      <div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">About</a></li>
+          </ul>
+      </div>
+    </div>
+   </header>
+   <main>
+    <div id="app">
+      <section id="formInfo">
+        <div class="formWrapper">
+          <div class="holder city">
+            <label for="city">Pick a travel destination (city)</label>
+            <input type="text" id="city" placeholder="Enter a city">
+          </div>
+          <div class="holder date">
+            <label for="startDate">When will you arrive?</label>
+            <input type="date" class="dateInput" name="trip-start" id="startDate"></input>
+            <button id="submitBtn" type="submit"> Submit </button>
+          </div>
+        </section>
+        <section id="destinationInfo">
+          <div class="holder entry">
+            <h2 class="title" hidden="true">Destination:</h2>
+            <div id="entryHolder">
+              <div id="date"></div>
+              <div id="city"></div>
+              <div id="country"></div>
+              <div id="latitude"></div>
+              <div id="longitude"></div> 
+              <div id="temp"></div>
+              <div id="description"></div>
+            </div>
+          </div>
+        </div>     
+      </section>
+    </div>
+   </main>
+   <footer>
+     <div><p> Copyright © 2022 </p>  </div>
+   </footer>
+   <script>
+    // Check that service workers are supported
+    if ('serviceWorker' in navigator) {
+        // Use the window load event to keep the page load performant
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js');
+        });
+    }
+   </script> 
 </body>
 </html>

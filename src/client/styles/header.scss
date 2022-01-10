@@ -1,0 +1,38 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    font-size: 22px;
+    background-color:#3b4a6b;
+    border: none;
+    align-items: center;
+    font-family: 'Oswald', sans-serif;
+}
+
+.header > p {
+  color:#f0d43a;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; 
+}
+
+li {
+  display: inline;
+  float: left; 
+}
+
+li a {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: #f0d43a;
+}
+
+a:hover {
+ color: #22b2da;
+}

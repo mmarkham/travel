@@ -41,19 +41,18 @@ function sendData (req, res) {
 // POST Geonames data
 const GeoBaseURL = `http://api.geonames.org/searchJSON?q=`;
 const geoID = `&maxRows=1&username=${process.env.GEONAMES_ID}`;
-app.post('/addGeonames', addData);
-function addData (req,res){
+app.post('/addGeonames', addGeoData);
+function addGeoData (req,res){
     let newEntry = req.body.city //todo;
     console.log(newEntry);
     apiData = retrieveGeoData(GeoBaseURL, newEntry, geoID)
     .then(function(apiData){
       console.log(apiData);
       Object.assign(projectData, {
-        latitude: apiData.body.latitude,
-        longitude: apiData.body.longitude,
-        country: apiData.body.country,
+        latitude: apiData.geonames.lat,
+        longitude: apiData.geonames.lng,
+        country: apiData.geonames.countryName,
     })
-      console.log(projectData);
       res.send(projectData);
     })
 };
@@ -61,18 +60,19 @@ function addData (req,res){
 // POST Weatherbit data
 const weatherBaseURL = 'http://api.weatherbit.io/v2.0/forecast/daily?city=';
 const weatherbitKey = `&key=${process.env.WEATHERBIT_KEY}`;
-app.post('/addWeather', addData);
-function addData (req,res){
+app.post('/addWeather', addWeatherData);
+function addWeatherData (req,res){
     let newEntry = req.body.city //todo;
     console.log(newEntry);
     apiData = retrieveWeatherData(weatherBaseURL, newEntry, weatherbitKey)
     .then(function(apiData){
-      console.log(apiData);
+      console.log(apiData.data[0]);
       Object.assign(projectData, {
-        temp: apiData.body.temp,
-        description: apiData.body.description,
+        minTemp: apiData.data[0].min_temp,
+        maxTemp: apiData.data[0].max_temp,
+        temp: apiData.data[0].temp,
+        description: apiData.data[0].weather.description,
     })
-      console.log(projectData);
       res.send(projectData);
     })
 };
@@ -81,26 +81,27 @@ function addData (req,res){
 const pixabayBaseURL = 'https://pixabay.com/api/?';
 const pixabayKey = `&key=${process.env.PIXABAY_KEY}&q=`;
 const category = '&category=travel&image_type=photo';
-app.post('/addWeather', addData);
-function addData (req,res){
+app.post('/addPixabay', addPixabayData);
+function addPixabayData (req,res){
     let newEntry = req.body.city //todo;
     console.log(newEntry);
     apiData = retrievePixabayData(pixabayBaseURL, pixabayKey, newEntry, category)
     .then(function(apiData){
-      console.log(apiData);
+      console.log(apiData.hits[0]);
       Object.assign(projectData, {
         image: apiData.hits[0].webformatURL,
     })
-      console.log(projectData);
       res.send(projectData);
     })
 };
+
+//console.log(projectData);
 
 
 // POST Countrylayer data
 
 // POST data
-app.post('/addData', addData);
+/*app.post('/addData', addData);
 function addData (req,res){
     let newEntry = req.body.ft;
     console.log(newEntry);
@@ -110,7 +111,7 @@ function addData (req,res){
       console.log(projectData);
       res.send(projectData);
     })
-};
+};*/
 
 // Async GET geodata
 const retrieveGeoData = async (url, id, city) =>{
