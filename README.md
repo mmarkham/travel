@@ -12,8 +12,9 @@ clone this repo and you will need to install everything:
 ## Setting up the API
 ### Step 1: Signup for an API keys
 - Create an account with Geonames [here](http://www.geonames.org/export/web-services.html). 
-- Create an account with Weatherbit [here](https://www.weatherbit.io/account/).
+- Create an account with Weatherbit [here](https://www.weatherbit.io/).
 - Create an account with Pixabay [here](https://pixabay.com/api/docs/).
+- Create an account with Countrylayer [here](https://countrylayer.com/).
 
 ### Step 2: Environment Variables
 - [ ] Create a new ```.env``` file in the root of your project
