@@ -1,3 +1,5 @@
+import { CalcTripLength } from "..";
+
 async function init() {
 	// Event listener to the submit button to call a function on click
 	const submitBtn = document.getElementById('submitBtn');
@@ -23,8 +25,8 @@ async function init() {
 				const pixabayData = await postData('http://localhost:8081/addPixabay', {city: city});
 
 			if (geonamesData && weatherData && pixabayData) {
-				const duration = await calculateDuration();
-				updateUI(duration);
+				CalcTripLength();
+				updateUI();
 			}
 			} 
 			else 
@@ -38,26 +40,13 @@ async function init() {
 		}
 	};
 
-	// Calculate trip duration
-	const calculateDuration = async () => {
-		const start = document.getElementById("startDate").value;
-		let startDate = new Date(start).getTime();
-		const end = document.getElementById("endDate").value;
-		let endDate = new Date(end).getTime();
-		let duration = endDate - startDate;
-		// convert to days
-		let days = Math.floor(duration / (1000 * 60 * 60 * 24));
-		return days;
-	}
-
 	// Update UI Elements
-	const updateUI = async (duration) => {
+	const updateUI = async () => {
 		const request = await fetch('http://localhost:8081/all');
 		try {
 			const res = await request.json();
 			//console.log(res);
 			document.getElementById('location').innerHTML = `<strong>Traveling to ${res.city}, ${res.country}</strong>`;
-			document.getElementById('duration').innerHTML = `Duration: ${duration} days`
 			document.getElementById('lat').innerHTML = `Latitude: ${res.lat}`;
 			document.getElementById('lng').innerHTML = `Longitude: ${res.lng}`;
 			document.getElementById('weather').innerHTML = `<strong>Today's Weather Forecast</strong>`;

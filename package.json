@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "node src/server/index.js",
+    "start": "node src/server/server.js",
     "build-prod": "webpack --config webpack.prod.js",
     "build-dev": "webpack serve --config webpack.dev.js --open"
   },
@@ -34,6 +34,7 @@
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "sass-loader": "^10.1.1",
     "style-loader": "^2.0.0",
+    "supertest": "^6.1.6",
     "terser-webpack-plugin": "^4.2.3",
     "webpack-dev-server": "^3.11.3",
     "workbox-webpack-plugin": "^6.4.2"

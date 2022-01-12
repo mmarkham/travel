@@ -26,6 +26,10 @@ app.get('/', function (req, res) {
     res.sendFile('dist/index.html');
 })
 
+app.get('/test', async (req, res) => {
+  res.json({message: 'pass!'})
+})
+
 // designates what port the app will listen to for incoming requests
 app.listen(8081, function () {
     console.log('App listening on port 8081!');
@@ -136,3 +140,5 @@ const retrievePixabayData = async (url, id, city) =>{
     console.log("error", error);
   }
 };
+
+module.exports = app;
