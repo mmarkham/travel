@@ -2,55 +2,47 @@
 @import "footer.scss";
 
 body {
+    display:flex;
+    flex-direction: column;
     background: #3b4a6b;
+    background-size: cover;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
 }
 
+main {
+    flex: 3;
+}
 #app {
-    height: 100vh;
-    background: #eee;
     color: #3b4a6b;
     justify-content: center;
     grid-gap: 1em;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
-    position: relative;
-    background-image: url('https://media.wired.com/photos/59328e1c2a990b06268ab832/191:100/pass/travelocity-expedia.jpg');
-    background-repeat:no-repeat;
-    background-size:100% 100vh;
 }
 
-.holder {
-}
-
-.feel {
-    display: flex;
-    flex-direction: column;
+#cityImg {
+    max-height: 60%;
+    max-width: 100%;
 }
 
 .entry {
-    background: rgba(59, 74, 107, 0.4);
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #79ccfc;
+    padding: 1%;
 }
 
 .formWrapper {
     padding: 1%;
-}
-#entryHolder {
-}
-
-#date {
+    background-color: #79ccfc;
 }
 
-#temp {
-}
-
-#content {
-}
-
-.headline {
-}
-.title {
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
 }
 
 /*  Basic Styling To Override Default For Basic HTML Elements */
@@ -62,16 +54,17 @@ label {
 input {
     display: block;
     height: 60px;
-    width: 320px;
+    width: 350px;
     background: #22b2da;
     color: #f0d43a;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
     border: none;
+    box-shadow: 2px 2px 3px #444;
 }
 
 button {
-    width: 30%;
+    width: 100%;
     height: 10%;
     background: #3b4a6b;
     color: #f0d43a;
@@ -79,19 +72,12 @@ button {
     font-family: 'Oswald', sans-serif;
     border: none;
     box-shadow: 2px 4px 5px #444;
-    margin-top: 5px;
-    align-self: center;
+    margin-top: 2%;
 }
 h1 {
     font-size: 36px;
 }
 
-textarea {
-    background: #22b2da;
-    color: #f0d43a;
-    font-size: 20px;
-    font-family: 'Oswald', sans-serif;
-}
 /* Reset style for HTML element on active to have no border*/
 input:focus,
 select:focus,
@@ -116,4 +102,12 @@ button:focus {
     /* Microsoft Edge */
     color: #f0d43a;
     font-family: 'Oswald', sans-serif;
+}
+
+@media (min-width: 1100px) {
+    .inputWrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }

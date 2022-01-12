@@ -1,91 +1,75 @@
 async function init() {
-
-	// Create a new date instance dynamically with JS
-	let d = new Date();
-	let newDate = (d.getMonth()+1)+'.'+ d.getDate() +'.'+ d.getFullYear();
-
 	// Event listener to the submit button to call a function on click
 	const submitBtn = document.getElementById('submitBtn');
 	submitBtn.addEventListener('click', handleSubmit);
+	let city = '';
 
 	// Called by event listener
 	async function handleSubmit(event) {
 		event.preventDefault();
 
-		const city = document.getElementById('city').value;
+		city = document.getElementById('city').value;
 		const startDate = document.getElementById('startDate').value;
-		if (/\S/.test(city) && startDate) {
-			console.log("::: Form Submitted :::");
-			//retrieve geonames data
-			postData('http://localhost:8081/addGeonames', {city: city});
-			//retrieve weatherbit data 
-			postData('http://localhost:8081/addWeather', {city: city});
-			//retrieve pixabay data 
-			postData('http://localhost:8081/addPixabay', {city: city});
+		const endDate = document.getElementById('endDate').value;
+		if (/\S/.test(city) && startDate && endDate) {
+			if (endDate > startDate) {
+				console.log("::: Form Submitted :::");
+
+				//retrieve geonames data
+				const geonamesData = await postData('http://localhost:8081/addGeonames', {city: city});
+				//retrieve weatherbit data 
+				const weatherData = await postData('http://localhost:8081/addWeather', {city: city});
+				//retrieve pixabay data 
+				const pixabayData = await postData('http://localhost:8081/addPixabay', {city: city});
+
+			if (geonamesData && weatherData && pixabayData) {
+				const duration = await calculateDuration();
+				updateUI(duration);
+			}
+			} 
+			else 
+			{
+				alert("Return date must occur after the selected arrival date");
+			}		
 		}
 		else
 		{
-			alert("Please enter a destination city and arrival date");
+			alert("Please enter a destination city, an arrival date, and a return date");
 		}
-
-		/*retrieveWeatherData(baseUrl, zipCode, apiKey)
-			.then(function (data) {
-				postWeatherData('/weatherData', {
-					temp: data.main.temp,
-					date: newDate,
-					userResponse: userResponse
-				});
-			})
-			.then(function () {
-				getWeatherData("/recentWeatherData")
-					.then(function (data) {
-						setInnerHTML(data);
-					})
-			});*/
 	};
 
-	//Updates UI
-	function setInnerHTML(data) {
-		try {
-			document.getElementById('temp').innerHTML = data.temp;
-			document.getElementById('date').innerHTML = data.date;
-			document.getElementById('content').innerHTML = data.userResponse;
-		}
-		catch (error) {
-			console.log("Error retrieving data " + error);
-		}
+	// Calculate trip duration
+	const calculateDuration = async () => {
+		const start = document.getElementById("startDate").value;
+		let startDate = new Date(start).getTime();
+		const end = document.getElementById("endDate").value;
+		let endDate = new Date(end).getTime();
+		let duration = endDate - startDate;
+		// convert to days
+		let days = Math.floor(duration / (1000 * 60 * 60 * 24));
+		return days;
 	}
 
-	// Returns weather data
-	const retrieveWeatherData = async(baseUrl, zipCode, apiKey) => {
-		const res = await fetch(baseUrl + zipCode + apiKey);
+	// Update UI Elements
+	const updateUI = async (duration) => {
+		const request = await fetch('http://localhost:8081/all');
 		try {
-			const data = await res.json()
-			return data;
-		} catch (error) {
-			console.log("Could not retrieve Weather Data", error);
+			const res = await request.json();
+			//console.log(res);
+			document.getElementById('location').innerHTML = `<strong>Traveling to ${res.city}, ${res.country}</strong>`;
+			document.getElementById('duration').innerHTML = `Duration: ${duration} days`
+			document.getElementById('lat').innerHTML = `Latitude: ${res.lat}`;
+			document.getElementById('lng').innerHTML = `Longitude: ${res.lng}`;
+			document.getElementById('weather').innerHTML = `<strong>Today's Weather Forecast</strong>`;
+			document.getElementById('temp').innerHTML = `Avg Temperature: ${res.temp}°C`;
+			document.getElementById('minTemp').innerHTML = `Low: ${res.minTemp}°C`;
+			document.getElementById('maxTemp').innerHTML = `High: ${res.maxTemp}°C`;
+			document.getElementById('description').innerHTML = res.description;
+			document.getElementById('cityImg').setAttribute("src",`${res.image}`);
+		} catch(error) {
+			console.log("error", error);
 		}
-	}
-
-	//GET request function
-	const getWeatherData = async(url = '') => {
-		const response = await fetch(url, {
-			method: 'GET',
-			credentials: 'same-origin',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		});
-
-		try {
-			const data = await response.json();
-			return data;
-		} catch (error) {
-			console.log("Error", error);
-		}
-	}
-
-	//getWeatherData('/recentWeatherData');
+	} 
 
 	//POST request function
 	const postData = async(url = '', data = {}) => {

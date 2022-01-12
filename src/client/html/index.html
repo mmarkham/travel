@@ -13,8 +13,8 @@
       <div>
         <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">Login</a></li>
           </ul>
       </div>
     </div>
@@ -23,26 +23,35 @@
     <div id="app">
       <section id="formInfo">
         <div class="formWrapper">
-          <div class="holder city">
-            <label for="city">Pick a travel destination (city)</label>
-            <input type="text" id="city" placeholder="Enter a city">
-          </div>
-          <div class="holder date">
-            <label for="startDate">When will you arrive?</label>
-            <input type="date" class="dateInput" name="trip-start" id="startDate"></input>
+          <div class="inputWrapper">
+            <div class="holder city">
+              <label for="city">Pick a travel destination (city)</label>
+              <input type="text" id="city" placeholder="Enter a city">
+            </div>
+            <div>
+              <label for="startDate">When will you arrive?</label>
+              <input type="date" class="dateInput" name="trip-start" id="startDate"></input>
+            </div>
+            <div>
+              <label for="endDate">When will you return?</label>
+              <input type="date" class="dateInput" name="trip-end" id="endDate"></input>
+            </div>
+         </div>
             <button id="submitBtn" type="submit"> Submit </button>
           </div>
         </section>
         <section id="destinationInfo">
           <div class="holder entry">
-            <h2 class="title" hidden="true">Destination:</h2>
             <div id="entryHolder">
-              <div id="date"></div>
-              <div id="city"></div>
-              <div id="country"></div>
-              <div id="latitude"></div>
-              <div id="longitude"></div> 
+              <div id="location"></div>
+              <div id="duration"></div>
+              <div id="lat"></div>
+              <div id="lng"></div>
+              <img id="cityImg" src="https://media.wired.com/photos/59328e1c2a990b06268ab832/191:100/pass/travelocity-expedia.jpg" /> 
+              <div id="weather"></div>
               <div id="temp"></div>
+              <div id="minTemp"></div>
+              <div id="maxTemp"></div>
               <div id="description"></div>
             </div>
           </div>
