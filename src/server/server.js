@@ -14,7 +14,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const whitelist = ["http://localhost:3000", "http://localhost:8080", "https://travel-app-mmarkham.herokuapp.com:3000", "https://travel-app-mmarkham.herokuapp.com"]
+const whitelist = ["http://localhost:3000", "http://localhost:8080", "https://travel-app-mmarkham.herokuapp.com:3000", "https://travel-app-mmarkham.herokuapp.com:8080", "https://travel-app-mmarkham.herokuapp.com"]
 
 const corsOptions = {
   origin: function (origin, callback) {
