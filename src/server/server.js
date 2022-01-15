@@ -23,7 +23,7 @@ app.use(express.static('dist'));
 console.log(__dirname);
 
 app.get('/', function (req, res) {
-    res.sendFile('dist/index.html');
+    res.sendFile(__dirname + '/dist/index.html');
 })
 
 app.get('/test', async (req, res) => {
