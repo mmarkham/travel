@@ -14,7 +14,20 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(cors());
+const whitelist = ["http://localhost:3000", "http://localhost:8080", "https://travel-app-mmarkham.herokuapp.com/"]
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error("Not allowed by CORS"))
+    }
+  },
+  credentials: true,
+}
+app.use(cors(corsOptions));
+
 app.use(express.static('dist'));
 
 console.log(path.join(__dirname, '..', '..', 'dist', 'index.html'));
@@ -59,7 +72,7 @@ function addGeoData (req,res){
 };
 
 // POST Weatherbit data
-const weatherBaseURL = 'http://api.weatherbit.io/v2.0/forecast/daily?city=';
+const weatherBaseURL = `http://api.weatherbit.io/v2.0/forecast/daily?city=`;
 const weatherbitKey = `&key=${process.env.WEATHERBIT_KEY}`;
 app.post('/addWeather', addWeatherData);
 function addWeatherData (req,res){
@@ -79,7 +92,7 @@ function addWeatherData (req,res){
 };
 
 // POST Pixabay data
-const pixabayBaseURL = 'https://pixabay.com/api/?';
+const pixabayBaseURL = `https://pixabay.com/api/?`;
 const pixabayKey = `&key=${process.env.PIXABAY_KEY}&q=`;
 const category = '&category=travel&image_type=photo';
 app.post('/addPixabay', addPixabayData);

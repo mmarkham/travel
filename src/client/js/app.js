@@ -1,11 +1,7 @@
 import { CalcTripLength } from "..";
 
 async function init() {
-	// Add proxy url to prevent cors error if not running on localhost
-	const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-	const hostName = window.location.hostname === 'localhost' ? window.location.protocol + '//' + window.location.hostname : proxyUrl + window.location.protocol + '//' + window.location.hostname;
-	console.log(window.location.hostname);
-	console.log(hostName);
+	const hostName = window.location.protocol + '//' + window.location.hostname;
 	// Event listener to the submit button to call a function on click
 	const submitBtn = document.getElementById('submitBtn');
 	submitBtn.addEventListener('click', handleSubmit);
