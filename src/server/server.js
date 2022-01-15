@@ -2,15 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const fetch = require("node-fetch");
+const path = require("path");
 let apiData;
 let projectData = {};
 
 const dotenv = require('dotenv');
 dotenv.config({path: '.env'});
-
-//console.log(`Your Weatherbit API key is ${process.env.WEATHERBIT_KEY}`);
-//console.log(`Your Pixabay API key is ${process.env.PIXABAY_KEY}`);
-//console.log(`Your Geonames ID is ${process.env.GEONAMES_ID}`);
 
 const app = express();
 
@@ -20,10 +17,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static('dist'));
 
-console.log(__dirname);
+console.log(path.join(__dirname, '..', '..', 'dist', 'index.html'));
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/dist/index.html');
+    res.sendFile(path.join(__dirname, '..', '..', 'dist', 'index.html'));
 })
 
 app.get('/test', async (req, res) => {
