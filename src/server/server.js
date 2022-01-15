@@ -31,8 +31,8 @@ app.get('/test', async (req, res) => {
 })
 
 // designates what port the app will listen to for incoming requests
-app.listen(8081, function () {
-    console.log('App listening on port 8081!');
+app.listen(process.env.PORT || 3000, function () {
+    console.log('App listening on port 3000!');
 })
 
 // GET route

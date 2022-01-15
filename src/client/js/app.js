@@ -2,6 +2,7 @@ import { CalcTripLength } from "..";
 
 async function init() {
 	// Event listener to the submit button to call a function on click
+	const hostName = window.location.protocol + '//' + window.location.hostname;
 	const submitBtn = document.getElementById('submitBtn');
 	submitBtn.addEventListener('click', handleSubmit);
 	let city = '';
@@ -18,11 +19,11 @@ async function init() {
 				console.log("::: Form Submitted :::");
 
 				//retrieve geonames data
-				const geonamesData = await postData('http://localhost:8081/addGeonames', {city: city});
+				const geonamesData = await postData(`${hostName}:3000/addGeonames`, {city: city});
 				//retrieve weatherbit data 
-				const weatherData = await postData('http://localhost:8081/addWeather', {city: city});
+				const weatherData = await postData(`${hostName}:3000/addWeather`, {city: city});
 				//retrieve pixabay data 
-				const pixabayData = await postData('http://localhost:8081/addPixabay', {city: city});
+				const pixabayData = await postData(`${hostName}:3000/addPixabay`, {city: city});
 
 			if (geonamesData && weatherData && pixabayData) {
 				CalcTripLength();
@@ -42,7 +43,7 @@ async function init() {
 
 	// Update UI Elements
 	const updateUI = async () => {
-		const request = await fetch('http://localhost:8081/all');
+		const request = await fetch(`${hostName}:3000/all`);
 		try {
 			const res = await request.json();
 			//console.log(res);
