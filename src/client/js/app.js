@@ -5,6 +5,7 @@ async function init() {
 	const hostName = window.location.protocol + '//' + window.location.hostname;
 	const submitBtn = document.getElementById('submitBtn');
 	submitBtn.addEventListener('click', handleSubmit);
+	const proxyUrl = "https://cors-anywhere.herokuapp.com/";
 	let city = '';
 
 	// Called by event listener
@@ -19,11 +20,11 @@ async function init() {
 				console.log("::: Form Submitted :::");
 
 				//retrieve geonames data
-				const geonamesData = await postData(`${hostName}:3000/addGeonames`, {city: city});
+				const geonamesData = await postData(`${proxyUrl}${hostName}:3000/addGeonames`, {city: city});
 				//retrieve weatherbit data 
-				const weatherData = await postData(`${hostName}:3000/addWeather`, {city: city});
+				const weatherData = await postData(`${proxyUrl}${hostName}:3000/addWeather`, {city: city});
 				//retrieve pixabay data 
-				const pixabayData = await postData(`${hostName}:3000/addPixabay`, {city: city});
+				const pixabayData = await postData(`${proxyUrl}${hostName}:3000/addPixabay`, {city: city});
 
 			if (geonamesData && weatherData && pixabayData) {
 				CalcTripLength();
@@ -43,7 +44,7 @@ async function init() {
 
 	// Update UI Elements
 	const updateUI = async () => {
-		const request = await fetch(`${hostName}:3000/all`);
+		const request = await fetch(`${proxyUrl}${hostName}:3000/all`);
 		try {
 			const res = await request.json();
 			//console.log(res);
